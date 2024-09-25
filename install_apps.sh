@@ -6,10 +6,10 @@ remo="Removing"
 
 #Start
 echo "Script for auto setup of Repositories, Remove some Preinstalled Apps, Install Apps and Updates."
-echo "Targeted for Linux Mint 20.x"
+echo "Targeted for Linux Mint 21.x"
 
 echo "Check for Updates, Install Updates, and Remove unneeded"
-sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y
+sudo apt-get update && sudo apt-get upgrade -y && sudo apt-get autoremove -y
 
 echo "--------------------------------------------------------------------------------"
 echo " "
@@ -53,63 +53,84 @@ echo "Enabling Main, Universe, Restricted, & Multiverse repositories"
 ##sudo add-apt-repository "deb http://archive.ubuntu.com/ubuntu $(lsb_release -sc) main universe restricted multiverse"
 sudo add-apt-repository main universe restricted multiverse -y
 
-echo "$stR Celluloid"
-sudo add-apt-repository ppa:xuzhen666/gnome-mpv -y
-
 echo "$stR Flat Remix"
 sudo add-apt-repository ppa:daniruiz/flat-remix -y
-
-echo "$stR GIMP"
-sudo add-apt-repository ppa:ubuntuhandbook1/gimp -y
+#sudo sh -c 'echo "deb http://ppa.launchpad.net/daniruiz/flat-remix/ubuntu jammy main
+# deb-src http://ppa.launchpad.net/daniruiz/flat-remix/ubuntu jammy main" >> /etc/apt/sources.list.d/daniruiz-flat-remix-jammy.list'
+sudo apt-key export 3066C9C9 | sudo gpg --dearmour -o /etc/apt/trusted.gpg.d/flat-remix.gpg
 
 echo "$stR Google Chrome"
-wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add - 
+wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/chrome-linux_signing_key.gpg
 sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
-cd /etc/apt/sources.list.d
-sudo rm google-chrome.list
-cd ~
-
-echo "$stR Krita"
-sudo add-apt-repository ppa:kritalime/ppa -y
+sudo rm /etc/apt/sources.list.d/google-chrome.list
 
 echo "$stR Inkscape"
 sudo add-apt-repository ppa:inkscape.dev/stable -y
+#sudo sh -c 'echo "deb http://ppa.launchpad.net/inkscape.dev/stable/ubuntu jammy main
+# deb-src http://ppa.launchpad.net/inkscape.dev/stable/ubuntu jammy main" >> /etc/apt/sources.list.d/inkscape_dev-stable-jammy.list'
+sudo apt-key export B9A06DE3 | sudo gpg --dearmour -o /etc/apt/trusted.gpg.d/inkscape.gpg
 
 echo "$stR LibreOffice"
 sudo add-apt-repository ppa:libreoffice/ppa -y
+#sudo sh -c 'echo "deb http://ppa.launchpad.net/libreoffice/ppa/ubuntu jammy main
+# deb-src http://ppa.launchpad.net/libreoffice/ppa/ubuntu jammy main" >> /etc/apt/sources.list.d/libreoffice-ppa-jammy.list'
+sudo apt-key export 1378B444 | sudo gpg --dearmour -o /etc/apt/trusted.gpg.d/libreoffice.gpg
 
 echo "$stR Mesa Drivers"
 sudo add-apt-repository ppa:kisak/kisak-mesa -y
+sudo apt-key export 90935439 | sudo gpg --dearmour -o /etc/apt/trusted.gpg.d/kisak-mesa.gpg
 
 echo "$stR MKVToolNix"
 ##Reference: https://mkvtoolnix.download/downloads.html#ubuntu
-sudo wget -O /usr/share/keyrings/gpg-pub-moritzbunkus.gpg https://mkvtoolnix.download/gpg-pub-moritzbunkus.gpg
-sudo sh -c 'echo "deb [arch=amd64 signed-by=/usr/share/keyrings/gpg-pub-moritzbunkus.gpg] https://mkvtoolnix.download/ubuntu/ focal main" >> /etc/apt/sources.list.d/mkvtoolnix.download.list'
+sudo wget -O /etc/apt/trusted.gpg.d/gpg-pub-moritzbunkus.gpg https://mkvtoolnix.download/gpg-pub-moritzbunkus.gpg
+sudo sh -c 'echo "deb [arch=amd64 signed-by=/etc/apt/trusted.gpg.d/gpg-pub-moritzbunkus.gpg] https://mkvtoolnix.download/ubuntu/ jammy main
+# deb-src [arch=amd64 signed-by=/usr/share/keyrings/gpg-pub-moritzbunkus.gpg] https://mkvtoolnix.download/ubuntu/ jammy main" >> /etc/apt/sources.list.d/mkvtoolnix.download.list'
 
 echo "$stR OBS Studio"
 sudo add-apt-repository ppa:obsproject/obs-studio -y
+#sudo sh -c 'echo "deb http://ppa.launchpad.net/obsproject/obs-studio/ubuntu jammy main
+# deb-src http://ppa.launchpad.net/obsproject/obs-studio/ubuntu jammy main" >> /etc/apt/sources.list.d/pbek-obsproject-obs-studio-jammy.list'
+sudo apt-key export F425E228 | sudo gpg --dearmour -o /etc/apt/trusted.gpg.d/obs.gpg
 
 echo "$stR ONLYOFFICE"
-sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys CB2DE8E5
+##Reference: https://helpcenter.onlyoffice.com/installation/docs-community-install-ubuntu.aspx
+
+#gpg keyring: 8320CA65CB2DE8E5
+gpg --no-default-keyring --keyring gnupg-ring:/tmp/onlyoffice.gpg --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys CB2DE8E5
+chmod 644 /tmp/onlyoffice.gpg
+sudo mv /tmp/onlyoffice.gpg /etc/apt/trusted.gpg.d/
 echo "deb https://download.onlyoffice.com/repo/debian squeeze main" | sudo tee /etc/apt/sources.list.d/onlyoffice.list
+
+#sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys CB2DE8E5
+#sudo apt-key export CB2DE8E5 | sudo gpg --dearmour -o /etc/apt/trusted.gpg.d/onlyoffice.gpg
 
 echo "$stR QOwnNotes"
 ##Reference: https://www.qownnotes.org/installation/ubuntu.html
 sudo add-apt-repository ppa:pbek/qownnotes -y
+#sudo sh -c 'echo "deb http://ppa.launchpad.net/pbek/qownnotes/ubuntu jammy main
+# deb-src http://ppa.launchpad.net/pbek/qownnotes/ubuntu jammy main" >> /etc/apt/sources.list.d/pbek-qownnotes-jammy.list'
+sudo apt-key export 47878405 | sudo gpg --dearmour -o /etc/apt/trusted.gpg.d/qownnotes.gpg
 
 echo "$stR Spotify"
-curl -sS https://download.spotify.com/debian/pubkey_0D811D58.gpg | sudo apt-key add - 
+curl -sS https://download.spotify.com/debian/pubkey_5E3C45D7B312C643.gpg | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/spotify.gpg
 echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
 
-echo "$stR UbuntuHandbook"
-sudo add-apt-repository ppa:ubuntuhandbook1/apps -y
+echo "$stR Strawberry Music Player"
+#sudo add-apt-repository ppa:jonaski/strawberry -y
+sudo sh -c 'echo "deb http://ppa.launchpad.net/jonaski/strawberry/ubuntu jammy main
+ deb-src http://ppa.launchpad.net/jonaski/strawberry/ubuntu jammy main" >> /etc/apt/sources.list.d/pbek-jonaski-strawberry-jammy.list'
+sudo apt-key export 99EA819D | sudo gpg --dearmour -o /etc/apt/trusted.gpg.d/strawberry.gpg
 
-echo "$stR VSCodium"
-wget -qO - https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/raw/master/pub.gpg \
-    | gpg --dearmor \
-    | sudo dd of=/usr/share/keyrings/vscodium-archive-keyring.gpg
-echo 'deb [ signed-by=/usr/share/keyrings/vscodium-archive-keyring.gpg ] https://paulcarroty.gitlab.io/vscodium-deb-rpm-repo/debs vscodium main' \
-    | sudo tee /etc/apt/sources.list.d/vscodium.list
+echo "$stR UbuntuHandbook & UbuntuHandbook (GIMP)"
+sudo add-apt-repository ppa:ubuntuhandbook1/apps -y
+sudo add-apt-repository ppa:ubuntuhandbook1/gimp -y
+sudo apt-key export 852541CB | sudo gpg --dearmour -o /etc/apt/trusted.gpg.d/ubuntuhandbookapps1.gpg
+
+echo "$stR VSCode"
+# Reference: https://code.visualstudio.com/docs/setup/linux
+curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
+sudo install -o root -g root -m 644 microsoft.gpg /etc/apt/trusted.gpg.d/
+sudo sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list'
 
 echo "Setting up Repos. DONE"
 
@@ -129,7 +150,7 @@ echo "--------------------------------------------------------------------------
 echo "$in Apps"
 
 echo "$in Android Tools"
-sudo apt-get install android-tools-adb android-tools-fastboot android-tools-mkbootimg -y
+sudo apt-get install adb fastboot android-tools-mkbootimg -y
 
 echo "$in Audacity"
 sudo apt-get install audacity -y
@@ -146,8 +167,8 @@ sudo apt-get install cargo -y
 echo "$in Celluloid"
 sudo apt-get install celluloid -y
 
-echo "$in Darktable"
-flatpak install org.darktable.Darktable -y
+#echo "$in Darktable"
+#flatpak install org.darktable.Darktable -y
 
 echo "$in ffmpeg"
 #edit to add nvenc, nvdec, cuda, cuvid, vulkan, etc as in https://www.gyan.dev/ffmpeg/builds/#libraries
@@ -173,11 +194,14 @@ sudo apt-get install fontforge -y
 echo "$in git"
 sudo apt-get install git -y
 
+echo "$in GIMP"
+sudo apt-get install gimp gimp-gmic -y
+
 #echo "$in GIMP (flatpak)"
 #flatpak install org.gimp.GIMP -y
 
-echo "$in GIMP"
-sudo apt-get install gimp gimp-gmic
+echo "$in Git"
+sudo apt-get install git -y
 
 echo "$in GNOME System Monitor"
 sudo apt-get install gnome-system-monitor -y
@@ -190,6 +214,7 @@ sudo apt-get install gparted  -y
 
 echo "$in Handbrake (flatpak)"
 flatpak install fr.handbrake.ghb -y
+flatpak override --user --filesystem=home fr.handbrake.ghb
 
 echo "$in Htop"
 sudo apt-get install htop  -y
@@ -202,6 +227,9 @@ sudo apt-get install inkscape -y
 
 echo "$in Krita"
 sudo apt-get install krita -y
+
+#echo "$in Krita (flatpak)"
+#flatpak install org.kde.krita -y
 
 echo "$in LibreOffice"
 sudo apt-get install libreoffice -y
@@ -221,7 +249,7 @@ echo "$in Nemo gtkhash extension"
 sudo apt-get install nemo-gtkhash -y
 
 echo "$in OBS Studio"
-sudo apt-get install obs-studio -y
+sudo apt-get install obs-studio v4l2loopback-dkms -y
 
 echo "$in ONLYOFFICE Desktop Editors"
 sudo apt-get install onlyoffice-desktopeditors onlyoffice-documentbuilder -y
@@ -235,11 +263,12 @@ sudo apt-get install pavucontrol -y
 echo "$in Pinta (flatpak)"
 flatpak install com.github.PintaProject.Pinta -y
 
+echo "$in Piper (libratbag frontend) for Logitech device config"
+#https://github.com/libratbag/piper/wiki/Installation
+sudo apt-get piper -y
+
 echo "$in Plank Dock"
 sudo apt-get install plank -y
-
-echo "$in Popsicle (flatpak)"
-flatpak install com.system76.Popsicle -y
 
 echo "$in Puddletag"
 sudo apt-get install puddletag -y
@@ -256,8 +285,11 @@ sudo apt-get install qownnotes -y
 echo "$in Spotify"
 sudo apt-get install spotify-client -y
 
-echo "$in Strawberry (flatpak)"
-flatpak install org.strawberrymusicplayer.strawberry -y
+#echo "$in Strawberry (flatpak)"
+#flatpak install org.strawberrymusicplayer.strawberry -y
+
+echo "$in Strawberry"
+sudo apt-get install strawberry -y
 
 echo "$in Synaptic Package Manager"
 sudo apt-get install synaptic -y
@@ -271,8 +303,8 @@ chmod 755 ttf-vista-fonts-installer.sh
 sudo ./ttf-vista-fonts-installer.sh
 cd ..
 
-echo "$in VSCodium"
-sudo apt-get install codium -y
+echo "$in VSCode"
+sudo apt install apt-transport-https code -y
 
 echo "$in yt-dlp"
 ##From binary (curl)
@@ -299,6 +331,14 @@ chmod u+x ~/.local/bin/mousewheel.sh
 echo -e "[Desktop Entry]\nName=Mouse Wheel Adjustment\nExec=mousewheel.sh\nComment=\nTerminal=false\nIcon=mouse\nType=Application" > $(xdg-user-dir DESKTOP)/mousewheel.desktop
 chmod u+x $(xdg-user-dir DESKTOP)/mousewheel.desktop
 echo -e "[Desktop Entry]\nName=imwheel\nExec=imwheel\nX-GNOME-Autostart-enabled=true\nNoDisplay=false\nHidden=false\nComment=Activates wheel scroll speed fix on system startup\nX-GNOME-Autostart-Delay=0\nType=Application" > ~/.config/autostart/imwheel.desktop
+
+echo "--------------------------------------------------------------------------------"
+echo " "
+echo "--------------------------------------------------------------------------------"
+
+# echo "Spotify Adblock"
+# chmod 755 spotify_adblock.sh
+# ./spotify_adblock.sh
 
 echo "--------------------------------------------------------------------------------"
 echo " "
