@@ -3,6 +3,8 @@
 in="Installing"
 stR="Setting up Repo for"
 remo="Removing"
+line="--------------------------------------------------------------------------------"
+blank=" "
 
 #Start
 echo "Script for auto setup of Repositories, Remove some Preinstalled Apps, Install Apps and Updates."
@@ -11,9 +13,9 @@ echo "Targeted for Linux Mint 21.x"
 echo "Check for Updates, Install Updates, and Remove unneeded"
 sudo apt-get update && sudo apt-get upgrade -y && sudo apt-get autoremove -y
 
-echo "--------------------------------------------------------------------------------"
-echo " "
-echo "--------------------------------------------------------------------------------"
+echo "$line"
+echo "$blank"
+echo "$line"
 
 echo "Removing some Preinstalled Apps"
 
@@ -43,9 +45,9 @@ sudo apt remove transmission transmission-gtk transmission-qt -y
 
 echo "Removing some Preinstalled Apps. DONE"
 
-echo "--------------------------------------------------------------------------------"
-echo " "
-echo "--------------------------------------------------------------------------------"
+echo "$line"
+echo "$blank"
+echo "$line"
 
 echo "Setting up Repos"
 
@@ -134,41 +136,38 @@ sudo sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/vscode s
 
 echo "Setting up Repos. DONE"
 
-echo "--------------------------------------------------------------------------------"
-echo " "
-echo "--------------------------------------------------------------------------------"
+echo "$line"
+echo "$blank"
+echo "$line"
 
 echo "Check for Updates"
 sudo apt-get update
 
 echo "Check for Updates. DONE"
 
-echo "--------------------------------------------------------------------------------"
-echo " "
-echo "--------------------------------------------------------------------------------"
+echo "$line"
+echo "$blank"
+echo "$line"
 
-echo "$in Apps"
-
-echo "$in Android Tools"
-sudo apt-get install adb fastboot android-tools-mkbootimg -y
-
-echo "$in Audacity"
-sudo apt-get install audacity -y
+echo "$in Dependencies"
 
 #echo "$in Flatpak"
 #sudo apt-get install flatpak -y
 
-echo "$in Bleachbit"
-sudo apt-get install bleachbit -y
+echo "$in Flatseal (Flatpak permissions manager)"
+flatpak install com.github.tchx84.Flatseal -y
+
+echo "$in Python & Python-pip"
+sudo apt-get install python python-pip-whl -y
 
 echo "$in Cargo (Rust Package Manager)"
 sudo apt-get install cargo -y
 
-echo "$in Celluloid"
-sudo apt-get install celluloid -y
+echo "$in Font Forge (requirement for Vista Fonts)"
+sudo apt-get install fontforge -y
 
-#echo "$in Darktable"
-#flatpak install org.darktable.Darktable -y
+echo "$in Git"
+sudo apt-get install git -y
 
 echo "$in ffmpeg"
 #edit to add nvenc, nvdec, cuda, cuvid, vulkan, etc as in https://www.gyan.dev/ffmpeg/builds/#libraries
@@ -184,24 +183,37 @@ sudo apt-get install ffmpeg -y
 #sudo make install
 #cd ~
 
+echo "Dependencies. DONE"
+
+echo "$line"
+echo "$blank"
+echo "$line"
+
+echo "$in Apps"
+
+echo "$in Android Tools"
+sudo apt-get install adb fastboot android-tools-mkbootimg -y
+
+echo "$in Audacity"
+sudo apt-get install audacity -y
+
+echo "$in Bleachbit"
+sudo apt-get install bleachbit -y
+
+echo "$in Celluloid"
+sudo apt-get install celluloid -y
+
+#echo "$in Darktable"
+#flatpak install org.darktable.Darktable -y
 
 echo "$in Flat Remix Icon Theme"
 sudo apt-get install flat-remix -y
-
-echo "$in Font Forge (requirement for Vista Fonts)"
-sudo apt-get install fontforge -y
-
-echo "$in git"
-sudo apt-get install git -y
 
 echo "$in GIMP"
 sudo apt-get install gimp gimp-gmic -y
 
 #echo "$in GIMP (flatpak)"
 #flatpak install org.gimp.GIMP -y
-
-echo "$in Git"
-sudo apt-get install git -y
 
 echo "$in GNOME System Monitor"
 sudo apt-get install gnome-system-monitor -y
@@ -233,6 +245,9 @@ sudo apt-get install krita -y
 
 echo "$in LibreOffice"
 sudo apt-get install libreoffice -y
+
+echo "$in LibreWolf (hardened Firefox fork)"
+flatpak io.gitlab.librewolf-community -y
 
 echo "$in Mcomix"
 sudo apt-get install mcomix -y
@@ -273,14 +288,14 @@ sudo apt-get install plank -y
 echo "$in Puddletag"
 sudo apt-get install puddletag -y
 
-echo "$in Python & Python-pip"
-sudo apt-get install python python-pip-whl -y
-
 echo "$in qBittorrent"
 sudo apt-get install qbittorrent -y
 
 echo "$in QOwnNotes"
 sudo apt-get install qownnotes -y
+
+echo "$in Remmina Remote Desktop Client"
+flatpak install org.remmina.Remmina -y
 
 echo "$in Spotify"
 sudo apt-get install spotify-client -y
@@ -297,6 +312,9 @@ sudo apt-get install synaptic -y
 echo "$in Thonny IDE"
 sudo apt-get install thonny -y
 
+echo "$in Virt Manager"
+sudo apt-get install virt-manager -y
+
 echo "$in Vista Fonts"
 cd ./Vista_Fonts_Installer/
 chmod 755 ttf-vista-fonts-installer.sh
@@ -312,14 +330,14 @@ echo "$in yt-dlp"
 ##From binary (wget)
 sudo wget https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp -O /usr/local/bin/yt-dlp
 sudo chmod a+rx /usr/local/bin/yt-dlp
-yt-dlp -U
+sudo yt-dlp --update-to nightly
 
 
 echo "$in Apps. DONE"
 
-echo "--------------------------------------------------------------------------------"
-echo " "
-echo "--------------------------------------------------------------------------------"
+echo "$line"
+echo "$blank"
+echo "$line"
 
 echo "Linux Mint Scroll Fix (based on https://forums.linuxmint.com/viewtopic.php?p=1641324#p1641324)"
 sudo apt-get install imwheel zenity -y
@@ -332,26 +350,34 @@ echo -e "[Desktop Entry]\nName=Mouse Wheel Adjustment\nExec=mousewheel.sh\nComme
 chmod u+x $(xdg-user-dir DESKTOP)/mousewheel.desktop
 echo -e "[Desktop Entry]\nName=imwheel\nExec=imwheel\nX-GNOME-Autostart-enabled=true\nNoDisplay=false\nHidden=false\nComment=Activates wheel scroll speed fix on system startup\nX-GNOME-Autostart-Delay=0\nType=Application" > ~/.config/autostart/imwheel.desktop
 
-echo "--------------------------------------------------------------------------------"
-echo " "
-echo "--------------------------------------------------------------------------------"
+echo "$line"
+echo "$blank"
+echo "$line"
+
+# Optional Stuff | START
 
 # echo "Spotify Adblock"
 # chmod 755 spotify_adblock.sh
 # ./spotify_adblock.sh
 
-echo "--------------------------------------------------------------------------------"
-echo " "
-echo "--------------------------------------------------------------------------------"
+# echo "Installing Console Emulators"
+# chmod 755 install_emulators.sh
+# ./install_emulators.sh
+
+# Optional Stuff | END
+
+echo "$line"
+echo "$blank"
+echo "$line"
 
 echo "$in Updates"
 sudo apt-get upgrade -y
 
 echo "$in Updates. DONE"
 
-echo "--------------------------------------------------------------------------------"
-echo " "
-echo "--------------------------------------------------------------------------------"
+echo "$line"
+echo "$blank"
+echo "$line"
 
 echo "$remo Unneeded Packages and Dependencies"
 sudo apt purge fontforge -y
@@ -360,9 +386,9 @@ sudo apt autoremove -y
 
 echo "$remo Unneeded Packages and Dependencies. DONE"
 
-echo "--------------------------------------------------------------------------------"
-echo " "
-echo "--------------------------------------------------------------------------------"
+echo "$line"
+echo "$blank"
+echo "$line"
 
 echo "DONE!"
 #End
