@@ -64,8 +64,9 @@ sudo apt-key export 3066C9C9 | sudo gpg --dearmour -o /etc/apt/trusted.gpg.d/fla
 
 
 echo "$stR Google Chrome"
-wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/chrome-linux_signing_key.gpg
-sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
+##Reference: https://www.google.com/linuxrepositories/
+wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/chrome-linux_signing_key.gpg
+sudo sh -c 'echo "deb [arch=amd64 signed-by=/etc/apt/trusted.gpg.d/chrome-linux_signing_key.gpg] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
 sudo rm /etc/apt/sources.list.d/google-chrome.list
 
 
@@ -326,17 +327,11 @@ flatpak install org.remmina.Remmina -y
 echo "$in Spotify"
 sudo apt-get install spotify-client -y
 
-#echo "$in Strawberry (flatpak)"
-#flatpak install org.strawberrymusicplayer.strawberry -y
-
 echo "$in Strawberry"
 sudo apt-get install strawberry -y
 
 echo "$in Synaptic Package Manager"
 sudo apt-get install synaptic -y
-
-# echo "$in Thonny IDE"
-# sudo apt-get install thonny -y
 
 echo "$in VeraCrypt"
 sudo apt-get install veracrypt -y
@@ -355,12 +350,12 @@ sudo apt install apt-transport-https code -y
 
 echo "$in yt-dlp"
 ##From binary (curl)
-#sudo curl -L https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp -o /usr/local/bin/yt-dlp
+# sudo curl -L https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp -o /usr/local/bin/yt-dlp
 ##From binary (wget)
 sudo wget https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp -O /usr/local/bin/yt-dlp
 sudo chmod a+rx /usr/local/bin/yt-dlp
-# sudo yt-dlp --update-to nightly
-sudo yt-dlp --update-to master
+sudo yt-dlp --update-to nightly
+# sudo yt-dlp --update-to master
 
 
 echo "$in Apps. DONE"
