@@ -239,9 +239,6 @@ sudo apt-get install flat-remix -y
 echo "$in GIMP"
 sudo apt-get install gimp gimp-gmic -y
 
-#echo "$in GIMP (flatpak)"
-#flatpak install org.gimp.GIMP -y
-
 echo "$in GNOME System Monitor"
 sudo apt-get install gnome-system-monitor -y
 
@@ -266,9 +263,6 @@ sudo apt-get install inkscape -y
 
 echo "$in Krita"
 sudo apt-get install krita -y
-
-#echo "$in Krita (flatpak)"
-#flatpak install org.kde.krita -y
 
 echo "$in LibreOffice"
 sudo apt-get install libreoffice -y

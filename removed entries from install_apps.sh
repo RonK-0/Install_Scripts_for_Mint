@@ -69,9 +69,15 @@ remo="Removing"
 #echo "$in Deepin Icon Theme"
 #sudo apt install deepin-icon-theme -y
 
+#echo "$in GIMP (flatpak)"
+#flatpak install org.gimp.GIMP -y
+
 ##switched to more updated flatpak version
 #echo "$in Handbrake"
 #sudo apt install handbrake -y
+
+#echo "$in Krita (flatpak)"
+#flatpak install org.kde.krita -y
 
 #echo "$in La Capitaine"
 #cd ~/.icons
@@ -114,6 +120,9 @@ remo="Removing"
 ##replaced with VSCode
 #echo "$in VSCodium"
 #sudo apt-get install codium -y
+
+#echo "$in Thonny IDE"
+#sudo apt-get install thonny -y
 
 ##replaced with qBittorrent
 #echo $in Transmission
