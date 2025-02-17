@@ -16,6 +16,10 @@ remo="Removing"
 #echo "$stR Handbrake"
 #sudo add-apt-repository ppa:stebbins/handbrake-releases -y
 
+# echo "$stR Inkscape"
+# sudo add-apt-repository ppa:inkscape.dev/stable -y
+# sudo apt-key export B9A06DE3 | sudo gpg --dearmour -o /etc/apt/trusted.gpg.d/inkscape.gpg
+
 ##Dropped Ref:https://www.reddit.com/r/linux/comments/wmnir4/krita_officially_no_longer_supports_package/
 #echo "$stR Krita"
 #sudo add-apt-repository ppa:kritalime/ppa -y
@@ -69,12 +73,28 @@ remo="Removing"
 #echo "$in Deepin Icon Theme"
 #sudo apt install deepin-icon-theme -y
 
+#echo "$in ffmpeg with extras"
+#edit to add nvenc, nvdec, cuda, cuvid, vulkan, etc as in https://www.gyan.dev/ffmpeg/builds/#libraries
+
+##Compiling ffmpeg with nvidia stuff (based on: https://docs.nvidia.com/video-technologies/video-codec-sdk/ffmpeg-with-nvidia-gpu/)
+#git clone https://git.videolan.org/git/ffmpeg/nv-codec-headers.git
+#cd nv-codec-headers && sudo make install && cd –
+#git clone https://git.ffmpeg.org/ffmpeg.git ffmpeg/
+#sudo apt-get install build-essential yasm cmake libtool libc6 libc6-dev unzip wget libnuma1 libnuma-dev -y
+#./configure --enable-nonfree --enable-cuda-nvcc --enable-libnpp --extra-cflags=-I/usr/local/cuda/include --extra-ldflags=-L/usr/local/cuda/lib64 --disable-static --enable-shared
+#make -j 8
+#sudo make install
+#cd ~
+
 #echo "$in GIMP (flatpak)"
 #flatpak install org.gimp.GIMP -y
 
 ##switched to more updated flatpak version
 #echo "$in Handbrake"
 #sudo apt install handbrake -y
+
+# echo "$in Inkscape"
+# sudo apt-get install inkscape -y
 
 #echo "$in Krita (flatpak)"
 #flatpak install org.kde.krita -y

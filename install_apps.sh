@@ -13,9 +13,11 @@ echo "Targeted for Linux Mint 21.x"
 echo "Check for Updates, Install Updates, and Remove unneeded"
 sudo apt-get update && sudo apt-get upgrade -y && sudo apt-get autoremove -y
 
+
 echo "$line"
 echo "$blank"
 echo "$line"
+
 
 echo "Removing some Preinstalled Apps"
 
@@ -45,9 +47,11 @@ sudo apt remove transmission transmission-gtk transmission-qt -y
 
 echo "Removing some Preinstalled Apps. DONE"
 
+
 echo "$line"
 echo "$blank"
 echo "$line"
+
 
 echo "Setting up Repos"
 
@@ -68,13 +72,6 @@ echo "$stR Google Chrome"
 wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/chrome-linux_signing_key.gpg
 sudo sh -c 'echo "deb [arch=amd64 signed-by=/etc/apt/trusted.gpg.d/chrome-linux_signing_key.gpg] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
 sudo rm /etc/apt/sources.list.d/google-chrome.list
-
-
-echo "$stR Inkscape"
-sudo add-apt-repository ppa:inkscape.dev/stable -y
-#sudo sh -c 'echo "deb http://ppa.launchpad.net/inkscape.dev/stable/ubuntu jammy main
-# deb-src http://ppa.launchpad.net/inkscape.dev/stable/ubuntu jammy main" >> /etc/apt/sources.list.d/inkscape_dev-stable-jammy.list'
-sudo apt-key export B9A06DE3 | sudo gpg --dearmour -o /etc/apt/trusted.gpg.d/inkscape.gpg
 
 
 echo "$stR LibreOffice"
@@ -197,24 +194,15 @@ echo "$in Git"
 sudo apt-get install git -y
 
 echo "$in ffmpeg"
-#edit to add nvenc, nvdec, cuda, cuvid, vulkan, etc as in https://www.gyan.dev/ffmpeg/builds/#libraries
 sudo apt-get install ffmpeg -y
 
-##Compiling ffmpeg with nvidia stuff (based on: https://docs.nvidia.com/video-technologies/video-codec-sdk/ffmpeg-with-nvidia-gpu/)
-#git clone https://git.videolan.org/git/ffmpeg/nv-codec-headers.git
-#cd nv-codec-headers && sudo make install && cd –
-#git clone https://git.ffmpeg.org/ffmpeg.git ffmpeg/
-#sudo apt-get install build-essential yasm cmake libtool libc6 libc6-dev unzip wget libnuma1 libnuma-dev -y
-#./configure --enable-nonfree --enable-cuda-nvcc --enable-libnpp --extra-cflags=-I/usr/local/cuda/include --extra-ldflags=-L/usr/local/cuda/lib64 --disable-static --enable-shared
-#make -j 8
-#sudo make install
-#cd ~
-
 echo "Dependencies. DONE"
+
 
 echo "$line"
 echo "$blank"
 echo "$line"
+
 
 echo "$in Apps"
 
@@ -257,9 +245,6 @@ sudo apt-get install htop  -y
 
 echo "$in httrack"
 sudo apt-get install httrack -y
-
-echo "$in Inkscape"
-sudo apt-get install inkscape -y
 
 echo "$in Krita"
 sudo apt-get install krita -y
@@ -351,12 +336,13 @@ sudo chmod a+rx /usr/local/bin/yt-dlp
 sudo yt-dlp --update-to nightly
 # sudo yt-dlp --update-to master
 
-
 echo "$in Apps. DONE"
+
 
 echo "$line"
 echo "$blank"
 echo "$line"
+
 
 echo "Linux Mint Scroll Fix (based on https://forums.linuxmint.com/viewtopic.php?p=1641324#p1641324)"
 sudo apt-get install imwheel zenity -y
@@ -369,9 +355,11 @@ echo -e "[Desktop Entry]\nName=Mouse Wheel Adjustment\nExec=mousewheel.sh\nComme
 chmod u+x $(xdg-user-dir DESKTOP)/mousewheel.desktop
 echo -e "[Desktop Entry]\nName=imwheel\nExec=imwheel\nX-GNOME-Autostart-enabled=true\nNoDisplay=false\nHidden=false\nComment=Activates wheel scroll speed fix on system startup\nX-GNOME-Autostart-Delay=0\nType=Application" > ~/.config/autostart/imwheel.desktop
 
+
 echo "$line"
 echo "$blank"
 echo "$line"
+
 
 # Optional Stuff | START
 
@@ -385,18 +373,22 @@ echo "$line"
 
 # Optional Stuff | END
 
+
 echo "$line"
 echo "$blank"
 echo "$line"
+
 
 echo "$in Updates"
 sudo apt-get upgrade -y
 
 echo "$in Updates. DONE"
 
+
 echo "$line"
 echo "$blank"
 echo "$line"
+
 
 echo "$remo Unneeded Packages and Dependencies"
 sudo apt purge fontforge -y
@@ -404,6 +396,7 @@ sudo apt purge fontforge -y
 sudo apt autoremove -y
 
 echo "$remo Unneeded Packages and Dependencies. DONE"
+
 
 echo "$line"
 echo "$blank"
