@@ -55,16 +55,19 @@ echo "Enabling Main, Universe, Restricted, & Multiverse repositories"
 ##sudo add-apt-repository "deb http://archive.ubuntu.com/ubuntu $(lsb_release -sc) main universe restricted multiverse"
 sudo add-apt-repository main universe restricted multiverse -y
 
+
 echo "$stR Flat Remix"
 sudo add-apt-repository ppa:daniruiz/flat-remix -y
 #sudo sh -c 'echo "deb http://ppa.launchpad.net/daniruiz/flat-remix/ubuntu jammy main
 # deb-src http://ppa.launchpad.net/daniruiz/flat-remix/ubuntu jammy main" >> /etc/apt/sources.list.d/daniruiz-flat-remix-jammy.list'
 sudo apt-key export 3066C9C9 | sudo gpg --dearmour -o /etc/apt/trusted.gpg.d/flat-remix.gpg
 
+
 echo "$stR Google Chrome"
 wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/chrome-linux_signing_key.gpg
 sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
 sudo rm /etc/apt/sources.list.d/google-chrome.list
+
 
 echo "$stR Inkscape"
 sudo add-apt-repository ppa:inkscape.dev/stable -y
@@ -72,15 +75,18 @@ sudo add-apt-repository ppa:inkscape.dev/stable -y
 # deb-src http://ppa.launchpad.net/inkscape.dev/stable/ubuntu jammy main" >> /etc/apt/sources.list.d/inkscape_dev-stable-jammy.list'
 sudo apt-key export B9A06DE3 | sudo gpg --dearmour -o /etc/apt/trusted.gpg.d/inkscape.gpg
 
+
 echo "$stR LibreOffice"
 sudo add-apt-repository ppa:libreoffice/ppa -y
 #sudo sh -c 'echo "deb http://ppa.launchpad.net/libreoffice/ppa/ubuntu jammy main
 # deb-src http://ppa.launchpad.net/libreoffice/ppa/ubuntu jammy main" >> /etc/apt/sources.list.d/libreoffice-ppa-jammy.list'
 sudo apt-key export 1378B444 | sudo gpg --dearmour -o /etc/apt/trusted.gpg.d/libreoffice.gpg
 
+
 echo "$stR Mesa Drivers"
 sudo add-apt-repository ppa:kisak/kisak-mesa -y
 sudo apt-key export 90935439 | sudo gpg --dearmour -o /etc/apt/trusted.gpg.d/kisak-mesa.gpg
+
 
 echo "$stR MKVToolNix"
 ##Reference: https://mkvtoolnix.download/downloads.html#ubuntu
@@ -88,52 +94,70 @@ sudo wget -O /etc/apt/trusted.gpg.d/gpg-pub-moritzbunkus.gpg https://mkvtoolnix.
 sudo sh -c 'echo "deb [arch=amd64 signed-by=/etc/apt/trusted.gpg.d/gpg-pub-moritzbunkus.gpg] https://mkvtoolnix.download/ubuntu/ jammy main
 # deb-src [arch=amd64 signed-by=/usr/share/keyrings/gpg-pub-moritzbunkus.gpg] https://mkvtoolnix.download/ubuntu/ jammy main" >> /etc/apt/sources.list.d/mkvtoolnix.download.list'
 
+
 echo "$stR OBS Studio"
 sudo add-apt-repository ppa:obsproject/obs-studio -y
 #sudo sh -c 'echo "deb http://ppa.launchpad.net/obsproject/obs-studio/ubuntu jammy main
 # deb-src http://ppa.launchpad.net/obsproject/obs-studio/ubuntu jammy main" >> /etc/apt/sources.list.d/pbek-obsproject-obs-studio-jammy.list'
 sudo apt-key export F425E228 | sudo gpg --dearmour -o /etc/apt/trusted.gpg.d/obs.gpg
 
+
 echo "$stR ONLYOFFICE"
 ##Reference: https://helpcenter.onlyoffice.com/installation/docs-community-install-ubuntu.aspx
 
 #gpg keyring: 8320CA65CB2DE8E5
-gpg --no-default-keyring --keyring gnupg-ring:/tmp/onlyoffice.gpg --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys CB2DE8E5
+#gpg --no-default-keyring --keyring gnupg-ring:/tmp/onlyoffice.gpg --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys CB2DE8E5
+curl -fsSL https://download.onlyoffice.com/GPG-KEY-ONLYOFFICE | gpg --no-default-keyring --keyring gnupg-ring:/tmp/onlyoffice.gpg --import
 chmod 644 /tmp/onlyoffice.gpg
 sudo mv /tmp/onlyoffice.gpg /etc/apt/trusted.gpg.d/
-echo "deb https://download.onlyoffice.com/repo/debian squeeze main" | sudo tee /etc/apt/sources.list.d/onlyoffice.list
+#echo "deb https://download.onlyoffice.com/repo/debian squeeze main" | sudo tee /etc/apt/sources.list.d/onlyoffice.list
+echo "deb [signed-by=/etc/apt/trusted.gpg.d/onlyoffice.gpg] https://download.onlyoffice.com/repo/debian squeeze main" | sudo tee /etc/apt/sources.list.d/onlyoffice.list
 
 #sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys CB2DE8E5
 #sudo apt-key export CB2DE8E5 | sudo gpg --dearmour -o /etc/apt/trusted.gpg.d/onlyoffice.gpg
 
+
 echo "$stR QOwnNotes"
 ##Reference: https://www.qownnotes.org/installation/ubuntu.html
+
 sudo add-apt-repository ppa:pbek/qownnotes -y
 #sudo sh -c 'echo "deb http://ppa.launchpad.net/pbek/qownnotes/ubuntu jammy main
 # deb-src http://ppa.launchpad.net/pbek/qownnotes/ubuntu jammy main" >> /etc/apt/sources.list.d/pbek-qownnotes-jammy.list'
 sudo apt-key export 47878405 | sudo gpg --dearmour -o /etc/apt/trusted.gpg.d/qownnotes.gpg
 
+
 echo "$stR Spotify"
 ##Reference: https://www.spotify.com/uk/download/linux/
+
 curl -sS https://download.spotify.com/debian/pubkey_C85668DF69375001.gpg | sudo gpg --dearmor --yes -o /etc/apt/trusted.gpg.d/spotify.gpg
-echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
+echo "d
+eb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
+
 
 echo "$stR Strawberry Music Player"
-#sudo add-apt-repository ppa:jonaski/strawberry -y
-sudo sh -c 'echo "deb http://ppa.launchpad.net/jonaski/strawberry/ubuntu jammy main
- deb-src http://ppa.launchpad.net/jonaski/strawberry/ubuntu jammy main" >> /etc/apt/sources.list.d/pbek-jonaski-strawberry-jammy.list'
+sudo add-apt-repository ppa:jonaski/strawberry -y
+# alt manual repo add for jammy
+# sudo sh -c 'echo "deb http://ppa.launchpad.net/jonaski/strawberry/ubuntu jammy main
+#  deb-src http://ppa.launchpad.net/jonaski/strawberry/ubuntu jammy main" >> /etc/apt/sources.list.d/pbek-jonaski-strawberry-jammy.list'
+
+# alt for Strawberry unstable
+# sudo add-apt-repository ppa:jonaski/strawberry-unstabl
 sudo apt-key export 99EA819D | sudo gpg --dearmour -o /etc/apt/trusted.gpg.d/strawberry.gpg
+
 
 echo "$stR UbuntuHandbook & UbuntuHandbook (GIMP)"
 sudo add-apt-repository ppa:ubuntuhandbook1/apps -y
 sudo add-apt-repository ppa:ubuntuhandbook1/gimp -y
 sudo apt-key export 852541CB | sudo gpg --dearmour -o /etc/apt/trusted.gpg.d/ubuntuhandbookapps1.gpg
 
+
 echo "$stR VSCode"
 # Reference: https://code.visualstudio.com/docs/setup/linux
+
 curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
 sudo install -o root -g root -m 644 microsoft.gpg /etc/apt/trusted.gpg.d/
-sudo sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list'
+sudo sh -c 'echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/trusted.gpg.d/microsoft.gpg] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list'
+
 
 echo "Setting up Repos. DONE"
 
