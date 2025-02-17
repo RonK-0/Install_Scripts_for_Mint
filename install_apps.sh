@@ -90,6 +90,7 @@ sudo apt-key export 90935439 | sudo gpg --dearmour -o /etc/apt/trusted.gpg.d/kis
 
 echo "$stR MKVToolNix"
 ##Reference: https://mkvtoolnix.download/downloads.html#ubuntu
+
 sudo wget -O /etc/apt/trusted.gpg.d/gpg-pub-moritzbunkus.gpg https://mkvtoolnix.download/gpg-pub-moritzbunkus.gpg
 sudo sh -c 'echo "deb [arch=amd64 signed-by=/etc/apt/trusted.gpg.d/gpg-pub-moritzbunkus.gpg] https://mkvtoolnix.download/ubuntu/ jammy main
 # deb-src [arch=amd64 signed-by=/usr/share/keyrings/gpg-pub-moritzbunkus.gpg] https://mkvtoolnix.download/ubuntu/ jammy main" >> /etc/apt/sources.list.d/mkvtoolnix.download.list'
@@ -334,8 +335,11 @@ sudo apt-get install strawberry -y
 echo "$in Synaptic Package Manager"
 sudo apt-get install synaptic -y
 
-echo "$in Thonny IDE"
-sudo apt-get install thonny -y
+# echo "$in Thonny IDE"
+# sudo apt-get install thonny -y
+
+echo "$in VeraCrypt"
+sudo apt-get install veracrypt -y
 
 echo "$in Virt Manager"
 sudo apt-get install virt-manager -y
@@ -355,7 +359,8 @@ echo "$in yt-dlp"
 ##From binary (wget)
 sudo wget https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp -O /usr/local/bin/yt-dlp
 sudo chmod a+rx /usr/local/bin/yt-dlp
-sudo yt-dlp --update-to nightly
+# sudo yt-dlp --update-to nightly
+sudo yt-dlp --update-to master
 
 
 echo "$in Apps. DONE"
