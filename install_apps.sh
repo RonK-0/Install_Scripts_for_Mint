@@ -144,9 +144,10 @@ sudo add-apt-repository ppa:jonaski/strawberry -y
 sudo apt-key export 99EA819D | sudo gpg --dearmour -o /etc/apt/trusted.gpg.d/strawberry.gpg
 
 
-echo "$stR UbuntuHandbook & UbuntuHandbook (GIMP)"
-sudo add-apt-repository ppa:ubuntuhandbook1/apps -y
-sudo add-apt-repository ppa:ubuntuhandbook1/gimp -y
+echo "$stR UbuntuHandbook & UbuntuHandbook (GIMP & Handbrake)"
+# sudo add-apt-repository ppa:ubuntuhandbook1/apps -y
+# sudo add-apt-repository ppa:ubuntuhandbook1/gimp -y
+sudo add-apt-repository ppa:ubuntuhandbook1/handbrake -y
 sudo apt-key export 852541CB | sudo gpg --dearmour -o /etc/apt/trusted.gpg.d/ubuntuhandbookapps1.gpg
 
 
@@ -224,8 +225,8 @@ sudo apt-get install celluloid -y
 echo "$in Flat Remix Icon Theme"
 sudo apt-get install flat-remix -y
 
-echo "$in GIMP"
-sudo apt-get install gimp gimp-gmic -y
+# echo "$in GIMP"
+# sudo apt-get install gimp gimp-gmic -y
 
 echo "$in GNOME System Monitor"
 sudo apt-get install gnome-system-monitor -y
@@ -236,9 +237,12 @@ sudo apt-get install google-chrome-stable  -y
 echo "$in Gparted"
 sudo apt-get install gparted  -y
 
-echo "$in Handbrake (flatpak)"
-flatpak install fr.handbrake.ghb -y
-flatpak override --user --filesystem=home fr.handbrake.ghb
+# echo "$in Handbrake (Official flatpak)"
+# flatpak install fr.handbrake.ghb -y
+# flatpak override --user --filesystem=home fr.handbrake.ghb
+
+echo "$in Handbrake (from distro repo or UbuntuHandbook)"
+sudo apt-get install handbrake handbrake-cli -y
 
 echo "$in Htop"
 sudo apt-get install htop  -y
