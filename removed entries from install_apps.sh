@@ -123,6 +123,9 @@ remo="Removing"
 #echo "$in PDfmod"
 #sudo apt install pdfmod -y
 
+#echo "$in Pinta (flatpak)"
+#fp_ins com.github.PintaProject.Pinta
+
 #echo "$in PopOS Theme"
 #sudo apt install pop-theme -y
 

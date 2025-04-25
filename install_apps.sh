@@ -7,11 +7,11 @@ line="--------------------------------------------------------------------------
 blank=" "
 
 #Start
-echo "Script for auto setup of Repositories, Remove some Preinstalled Apps, Install Apps and Updates."
-echo "Targeted for Linux Mint 21.x"
+echo "Script for auto setup of Repositories, Removal of some Preinstalled Apps, Installing Apps and Updates."
+echo "Targeted for Linux Mint 21.x and LMDE 6"
 
-echo "Check for Updates, Install Updates, and Remove unneeded"
-sudo apt-get update && sudo apt-get upgrade -y && sudo apt-get autoremove -y
+echo "Check for Updates, Install Updates, and Remove unneeded packages"
+sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y
 
 
 echo "$line"
@@ -166,7 +166,7 @@ echo "$blank"
 echo "$line"
 
 echo "Check for Updates"
-sudo apt-get update
+sudo apt update
 
 echo "Check for Updates. DONE"
 
@@ -177,25 +177,25 @@ echo "$line"
 echo "$in Dependencies"
 
 #echo "$in Flatpak"
-#sudo apt-get install flatpak -y
+#sudo apt install flatpak -y
 
 echo "$in Flatseal (Flatpak permissions manager)"
 flatpak install com.github.tchx84.Flatseal -y
 
 echo "$in Python & Python-pip"
-sudo apt-get install python python-pip-whl -y
+sudo apt install python python-pip-whl -y
 
 echo "$in Cargo (Rust Package Manager)"
-sudo apt-get install cargo -y
+sudo apt install cargo -y
 
 echo "$in Font Forge (requirement for Vista Fonts)"
-sudo apt-get install fontforge -y
+sudo apt install fontforge -y
 
 echo "$in Git"
-sudo apt-get install git -y
+sudo apt install git -y
 
 echo "$in ffmpeg"
-sudo apt-get install ffmpeg -y
+sudo apt install ffmpeg -y
 
 echo "Dependencies. DONE"
 
@@ -208,119 +208,116 @@ echo "$line"
 echo "$in Apps"
 
 echo "$in Android Tools"
-sudo apt-get install adb fastboot android-tools-mkbootimg -y
+sudo apt install adb fastboot mkbootimg -y
 
 echo "$in Audacity"
-sudo apt-get install audacity -y
+sudo apt install audacity -y
 
 echo "$in Bleachbit"
-sudo apt-get install bleachbit -y
+sudo apt install bleachbit -y
 
 echo "$in Celluloid"
-sudo apt-get install celluloid -y
+sudo apt install celluloid -y
 
 #echo "$in Darktable"
 #flatpak install org.darktable.Darktable -y
 
 echo "$in Flat Remix Icon Theme"
-sudo apt-get install flat-remix -y
+sudo apt install flat-remix -y
 
 # echo "$in GIMP"
-# sudo apt-get install gimp gimp-gmic -y
+# sudo apt install gimp gimp-gmic -y
 
 echo "$in GNOME System Monitor"
-sudo apt-get install gnome-system-monitor -y
+sudo apt install gnome-system-monitor -y
 
 echo "$in Google Chrome"
-sudo apt-get install google-chrome-stable  -y
+sudo apt install google-chrome-stable  -y
 
 echo "$in Gparted"
-sudo apt-get install gparted  -y
+sudo apt install gparted  -y
 
 # echo "$in Handbrake (Official flatpak)"
 # flatpak install fr.handbrake.ghb -y
 # flatpak override --user --filesystem=home fr.handbrake.ghb
 
 echo "$in Handbrake (from distro repo or UbuntuHandbook)"
-sudo apt-get install handbrake handbrake-cli -y
+sudo apt install handbrake handbrake-cli -y
 
 echo "$in Htop"
-sudo apt-get install htop  -y
+sudo apt install htop  -y
 
 echo "$in httrack"
-sudo apt-get install httrack -y
+sudo apt install httrack -y
 
 echo "$in Krita"
-sudo apt-get install krita -y
+sudo apt install krita -y
 
 echo "$in LibreOffice"
-sudo apt-get install libreoffice -y
+sudo apt install libreoffice -y
 
 echo "$in LibreWolf (hardened Firefox fork)"
 flatpak io.gitlab.librewolf-community -y
 
 echo "$in Mcomix"
-sudo apt-get install mcomix -y
+sudo apt install mcomix -y
 
 echo "$in MKVToolNix"
-sudo apt-get install mkvtoolnix mkvtoolnix-gui -y
+sudo apt install mkvtoolnix mkvtoolnix-gui -y
 
 echo "$in Microsoft TrueType Core Fonts"
-#sudo apt-get install ttf-mscorefonts-installer -y
+#sudo apt install ttf-mscorefonts-installer -y
 echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | sudo debconf-set-selections
-sudo apt-get install ttf-mscorefonts-installer -y
+sudo apt install ttf-mscorefonts-installer -y
 
 echo "$in Nemo gtkhash extension"
-sudo apt-get install nemo-gtkhash -y
+sudo apt install nemo-gtkhash -y
 
 echo "$in OBS Studio"
-sudo apt-get install obs-studio v4l2loopback-dkms -y
+sudo apt install obs-studio v4l2loopback-dkms -y
 
 echo "$in ONLYOFFICE Desktop Editors"
-sudo apt-get install onlyoffice-desktopeditors onlyoffice-documentbuilder -y
+sudo apt install onlyoffice-desktopeditors onlyoffice-documentbuilder -y
 
 echo "$in Papirus Icon Theme"
-sudo apt-get install papirus-icon-theme -y
+sudo apt install papirus-icon-theme -y
 
 echo "$in Pulse Audio Volume Control"
-sudo apt-get install pavucontrol -y
-
-echo "$in Pinta (flatpak)"
-flatpak install com.github.PintaProject.Pinta -y
+sudo apt install pavucontrol -y
 
 echo "$in Piper (libratbag frontend) for Logitech device config"
 #https://github.com/libratbag/piper/wiki/Installation
-sudo apt-get piper -y
+sudo apt install piper -y
 
 echo "$in Plank Dock"
-sudo apt-get install plank -y
+sudo apt install plank -y
 
 echo "$in Puddletag"
-sudo apt-get install puddletag -y
+sudo apt install puddletag -y
 
 echo "$in qBittorrent"
-sudo apt-get install qbittorrent -y
+sudo apt install qbittorrent -y
 
 echo "$in QOwnNotes"
-sudo apt-get install qownnotes -y
+sudo apt install qownnotes -y
 
 echo "$in Remmina Remote Desktop Client"
 flatpak install org.remmina.Remmina -y
 
 echo "$in Spotify"
-sudo apt-get install spotify-client -y
+sudo apt install spotify-client -y
 
 echo "$in Strawberry"
-sudo apt-get install strawberry -y
+sudo apt install strawberry -y
 
 echo "$in Synaptic Package Manager"
-sudo apt-get install synaptic -y
+sudo apt install synaptic -y
 
 echo "$in VeraCrypt"
-sudo apt-get install veracrypt -y
+sudo apt install veracrypt -y
 
 echo "$in Virt Manager"
-sudo apt-get install virt-manager -y
+sudo apt install virt-manager -y
 
 echo "$in Vista Fonts"
 cd ./Vista_Fonts_Installer/
@@ -349,7 +346,7 @@ echo "$line"
 
 
 echo "Linux Mint Scroll Fix (based on https://forums.linuxmint.com/viewtopic.php?p=1641324#p1641324)"
-sudo apt-get install imwheel zenity -y
+sudo apt install imwheel zenity -y
 mkdir ~/.local/bin
 wget http://www.nicknorton.net/mousewheel.sh -O ./mousewheel.sh
 chmod 755 ./mousewheel.sh
@@ -384,7 +381,7 @@ echo "$line"
 
 
 echo "$in Updates"
-sudo apt-get upgrade -y
+sudo apt upgrade -y
 
 echo "$in Updates. DONE"
 
