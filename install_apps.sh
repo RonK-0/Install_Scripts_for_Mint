@@ -4,7 +4,30 @@ in="Installing"
 stR="Setting up Repo for"
 remo="Removing"
 line="--------------------------------------------------------------------------------"
-blank=" "
+
+# Reusable functions
+# shorthand for 'apt install'
+apt_ins() {
+    sudo apt install -y "$@"
+    echo
+}
+# shorthand for 'apt remove'
+apt_rem() {
+    sudo apt remove -y "$@"
+    echo
+}
+# shorthand for 'apt purge'
+apt_purge() {
+    sudo apt purge -y "$@"
+    echo
+}
+# shorthand for section divider
+next_sec() {
+    echo "$line"
+    echo
+    echo "$line"
+}
+
 
 #Start
 echo "Script for auto setup of Repositories, Removal of some Preinstalled Apps, Installing Apps and Updates."
@@ -14,43 +37,39 @@ echo "Check for Updates, Install Updates, and Remove unneeded packages"
 sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y
 
 
-echo "$line"
-echo "$blank"
-echo "$line"
+next_sec
 
 
 echo "Removing some Preinstalled Apps"
 
 echo "$remo Drawing"
-sudo apt remove drawing -y
+apt_purge "drawing"
 
 echo "$remo Hexchat"
-sudo apt remove hexchat -y
+apt_purge "hexchat"
 
 echo "$remo Hypnotix"
-sudo apt remove hypnotix -y
+apt_purge "hypnotix"
 
 echo "$remo Redshift"
-sudo apt remove redshift -y
+apt_purge "redshift"
 
 echo "$remo Rhythmbox"
-sudo apt remove rhythmbox -y
+apt_purge "rhythmbox"
 
 echo "$remo Simple Scan"
-sudo apt remove simple-scan -y
+apt_purge "simple-scan"
 
 echo "$remo Thunderbird"
-sudo apt remove thunderbird -y
+apt_purge "thunderbird"
 
 echo "$remo Transmission"
-sudo apt remove transmission transmission-gtk transmission-qt -y
+apt_purge "transmission transmission-gtk transmission-qt"
 
 echo "Removing some Preinstalled Apps. DONE"
 
 
-echo "$line"
-echo "$blank"
-echo "$line"
+next_sec
 
 
 echo "Setting up Repos"
@@ -62,8 +81,6 @@ sudo add-apt-repository main universe restricted multiverse -y
 
 echo "$stR Flat Remix"
 sudo add-apt-repository ppa:daniruiz/flat-remix -y
-#sudo sh -c 'echo "deb http://ppa.launchpad.net/daniruiz/flat-remix/ubuntu jammy main
-# deb-src http://ppa.launchpad.net/daniruiz/flat-remix/ubuntu jammy main" >> /etc/apt/sources.list.d/daniruiz-flat-remix-jammy.list'
 sudo apt-key export 3066C9C9 | sudo gpg --dearmour -o /etc/apt/trusted.gpg.d/flat-remix.gpg
 
 
@@ -76,8 +93,6 @@ sudo rm /etc/apt/sources.list.d/google-chrome.list
 
 echo "$stR LibreOffice"
 sudo add-apt-repository ppa:libreoffice/ppa -y
-#sudo sh -c 'echo "deb http://ppa.launchpad.net/libreoffice/ppa/ubuntu jammy main
-# deb-src http://ppa.launchpad.net/libreoffice/ppa/ubuntu jammy main" >> /etc/apt/sources.list.d/libreoffice-ppa-jammy.list'
 sudo apt-key export 1378B444 | sudo gpg --dearmour -o /etc/apt/trusted.gpg.d/libreoffice.gpg
 
 
@@ -96,32 +111,22 @@ sudo sh -c 'echo "deb [arch=amd64 signed-by=/etc/apt/trusted.gpg.d/gpg-pub-morit
 
 echo "$stR OBS Studio"
 sudo add-apt-repository ppa:obsproject/obs-studio -y
-#sudo sh -c 'echo "deb http://ppa.launchpad.net/obsproject/obs-studio/ubuntu jammy main
-# deb-src http://ppa.launchpad.net/obsproject/obs-studio/ubuntu jammy main" >> /etc/apt/sources.list.d/pbek-obsproject-obs-studio-jammy.list'
 sudo apt-key export F425E228 | sudo gpg --dearmour -o /etc/apt/trusted.gpg.d/obs.gpg
 
 
 echo "$stR ONLYOFFICE"
 ##Reference: https://helpcenter.onlyoffice.com/installation/docs-community-install-ubuntu.aspx
 
-#gpg keyring: 8320CA65CB2DE8E5
-#gpg --no-default-keyring --keyring gnupg-ring:/tmp/onlyoffice.gpg --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys CB2DE8E5
 curl -fsSL https://download.onlyoffice.com/GPG-KEY-ONLYOFFICE | gpg --no-default-keyring --keyring gnupg-ring:/tmp/onlyoffice.gpg --import
 chmod 644 /tmp/onlyoffice.gpg
 sudo mv /tmp/onlyoffice.gpg /etc/apt/trusted.gpg.d/
-#echo "deb https://download.onlyoffice.com/repo/debian squeeze main" | sudo tee /etc/apt/sources.list.d/onlyoffice.list
 echo "deb [signed-by=/etc/apt/trusted.gpg.d/onlyoffice.gpg] https://download.onlyoffice.com/repo/debian squeeze main" | sudo tee /etc/apt/sources.list.d/onlyoffice.list
-
-#sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys CB2DE8E5
-#sudo apt-key export CB2DE8E5 | sudo gpg --dearmour -o /etc/apt/trusted.gpg.d/onlyoffice.gpg
 
 
 echo "$stR QOwnNotes"
 ##Reference: https://www.qownnotes.org/installation/ubuntu.html
 
 sudo add-apt-repository ppa:pbek/qownnotes -y
-#sudo sh -c 'echo "deb http://ppa.launchpad.net/pbek/qownnotes/ubuntu jammy main
-# deb-src http://ppa.launchpad.net/pbek/qownnotes/ubuntu jammy main" >> /etc/apt/sources.list.d/pbek-qownnotes-jammy.list'
 sudo apt-key export 47878405 | sudo gpg --dearmour -o /etc/apt/trusted.gpg.d/qownnotes.gpg
 
 
@@ -135,12 +140,8 @@ eb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.li
 
 echo "$stR Strawberry Music Player"
 sudo add-apt-repository ppa:jonaski/strawberry -y
-# alt manual repo add for jammy
-# sudo sh -c 'echo "deb http://ppa.launchpad.net/jonaski/strawberry/ubuntu jammy main
-#  deb-src http://ppa.launchpad.net/jonaski/strawberry/ubuntu jammy main" >> /etc/apt/sources.list.d/pbek-jonaski-strawberry-jammy.list'
-
 # alt for Strawberry unstable
-# sudo add-apt-repository ppa:jonaski/strawberry-unstabl
+# sudo add-apt-repository ppa:jonaski/strawberry-unstable
 sudo apt-key export 99EA819D | sudo gpg --dearmour -o /etc/apt/trusted.gpg.d/strawberry.gpg
 
 
@@ -161,163 +162,158 @@ sudo sh -c 'echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/trusted.gpg.d/m
 
 echo "Setting up Repos. DONE"
 
-echo "$line"
-echo "$blank"
-echo "$line"
+next_sec
 
 echo "Check for Updates"
 sudo apt update
 
 echo "Check for Updates. DONE"
 
-echo "$line"
-echo "$blank"
-echo "$line"
+next_sec
 
 echo "$in Dependencies"
 
-#echo "$in Flatpak"
-#sudo apt install flatpak -y
+echo "$in Flatpak"
+apt_ins "flatpak"
 
 echo "$in Flatseal (Flatpak permissions manager)"
 flatpak install com.github.tchx84.Flatseal -y
 
 echo "$in Python & Python-pip"
-sudo apt install python python-pip-whl -y
+apt_ins "python python-pip-whl"
 
 echo "$in Cargo (Rust Package Manager)"
-sudo apt install cargo -y
+apt_ins "cargo"
 
 echo "$in Font Forge (requirement for Vista Fonts)"
-sudo apt install fontforge -y
+apt_ins "fontforge"
 
 echo "$in Git"
-sudo apt install git -y
+apt_ins "git"
 
 echo "$in ffmpeg"
-sudo apt install ffmpeg -y
+apt_ins "ffmpeg"
+
+apt_ins "curl wget"
 
 echo "Dependencies. DONE"
 
 
-echo "$line"
-echo "$blank"
-echo "$line"
+next_sec
 
 
 echo "$in Apps"
 
 echo "$in Android Tools"
-sudo apt install adb fastboot mkbootimg -y
+apt_ins "adb fastboot mkbootimg"
 
 echo "$in Audacity"
-sudo apt install audacity -y
+apt_ins "audacity"
 
 echo "$in Bleachbit"
-sudo apt install bleachbit -y
+apt_ins "bleachbit"
 
 echo "$in Celluloid"
-sudo apt install celluloid -y
+apt_ins "celluloid"
 
 #echo "$in Darktable"
 #flatpak install org.darktable.Darktable -y
 
 echo "$in Flat Remix Icon Theme"
-sudo apt install flat-remix -y
+apt_ins "flat-remix"
 
 # echo "$in GIMP"
-# sudo apt install gimp gimp-gmic -y
+# apt_ins "gimp gimp-gmic"
 
 echo "$in GNOME System Monitor"
-sudo apt install gnome-system-monitor -y
+apt_ins "gnome-system-monitor"
 
 echo "$in Google Chrome"
-sudo apt install google-chrome-stable  -y
+apt_ins "google-chrome-stable "
 
 echo "$in Gparted"
-sudo apt install gparted  -y
+apt_ins "gparted "
 
 # echo "$in Handbrake (Official flatpak)"
 # flatpak install fr.handbrake.ghb -y
 # flatpak override --user --filesystem=home fr.handbrake.ghb
 
 echo "$in Handbrake (from distro repo or UbuntuHandbook)"
-sudo apt install handbrake handbrake-cli -y
+apt_ins "handbrake handbrake-cli"
 
 echo "$in Htop"
-sudo apt install htop  -y
+apt_ins "htop "
 
 echo "$in httrack"
-sudo apt install httrack -y
+apt_ins "httrack"
 
 echo "$in Krita"
-sudo apt install krita -y
+apt_ins "krita"
 
 echo "$in LibreOffice"
-sudo apt install libreoffice -y
+apt_ins "libreoffice"
 
 echo "$in LibreWolf (hardened Firefox fork)"
 flatpak io.gitlab.librewolf-community -y
 
 echo "$in Mcomix"
-sudo apt install mcomix -y
+apt_ins "mcomix"
 
 echo "$in MKVToolNix"
-sudo apt install mkvtoolnix mkvtoolnix-gui -y
+apt_ins "mkvtoolnix mkvtoolnix-gui"
 
 echo "$in Microsoft TrueType Core Fonts"
-#sudo apt install ttf-mscorefonts-installer -y
 echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | sudo debconf-set-selections
-sudo apt install ttf-mscorefonts-installer -y
+apt_ins "ttf-mscorefonts-installer"
 
 echo "$in Nemo gtkhash extension"
-sudo apt install nemo-gtkhash -y
+apt_ins "nemo-gtkhash"
 
 echo "$in OBS Studio"
-sudo apt install obs-studio v4l2loopback-dkms -y
+apt_ins "obs-studio v4l2loopback-dkms"
 
 echo "$in ONLYOFFICE Desktop Editors"
-sudo apt install onlyoffice-desktopeditors onlyoffice-documentbuilder -y
+apt_ins "onlyoffice-desktopeditors onlyoffice-documentbuilder"
 
 echo "$in Papirus Icon Theme"
-sudo apt install papirus-icon-theme -y
+apt_ins "papirus-icon-theme"
 
 echo "$in Pulse Audio Volume Control"
-sudo apt install pavucontrol -y
+apt_ins "pavucontrol"
 
 echo "$in Piper (libratbag frontend) for Logitech device config"
 #https://github.com/libratbag/piper/wiki/Installation
-sudo apt install piper -y
+apt_ins "piper"
 
 echo "$in Plank Dock"
-sudo apt install plank -y
+apt_ins "plank"
 
 echo "$in Puddletag"
-sudo apt install puddletag -y
+apt_ins "puddletag"
 
 echo "$in qBittorrent"
-sudo apt install qbittorrent -y
+apt_ins "qbittorrent"
 
 echo "$in QOwnNotes"
-sudo apt install qownnotes -y
+apt_ins "qownnotes"
 
 echo "$in Remmina Remote Desktop Client"
 flatpak install org.remmina.Remmina -y
 
 echo "$in Spotify"
-sudo apt install spotify-client -y
+apt_ins "spotify-client"
 
 echo "$in Strawberry"
-sudo apt install strawberry -y
+apt_ins "strawberry"
 
 echo "$in Synaptic Package Manager"
-sudo apt install synaptic -y
+apt_ins "synaptic"
 
 echo "$in VeraCrypt"
-sudo apt install veracrypt -y
+apt_ins "veracrypt"
 
 echo "$in Virt Manager"
-sudo apt install virt-manager -y
+apt_ins "virt-manager"
 
 echo "$in Vista Fonts"
 cd ./Vista_Fonts_Installer/
@@ -326,12 +322,12 @@ sudo ./ttf-vista-fonts-installer.sh
 cd ..
 
 echo "$in VSCode"
-sudo apt install apt-transport-https code -y
+apt_ins "apt-transport-https code"
 
 echo "$in yt-dlp"
-##From binary (curl)
+## curl method
 # sudo curl -L https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp -o /usr/local/bin/yt-dlp
-##From binary (wget)
+## wget method
 sudo wget https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp -O /usr/local/bin/yt-dlp
 sudo chmod a+rx /usr/local/bin/yt-dlp
 sudo yt-dlp --update-to nightly
@@ -340,13 +336,11 @@ sudo yt-dlp --update-to nightly
 echo "$in Apps. DONE"
 
 
-echo "$line"
-echo "$blank"
-echo "$line"
+next_sec
 
 
 echo "Linux Mint Scroll Fix (based on https://forums.linuxmint.com/viewtopic.php?p=1641324#p1641324)"
-sudo apt install imwheel zenity -y
+apt_ins "imwheel zenity"
 mkdir ~/.local/bin
 wget http://www.nicknorton.net/mousewheel.sh -O ./mousewheel.sh
 chmod 755 ./mousewheel.sh
@@ -357,9 +351,7 @@ chmod u+x $(xdg-user-dir DESKTOP)/mousewheel.desktop
 echo -e "[Desktop Entry]\nName=imwheel\nExec=imwheel\nX-GNOME-Autostart-enabled=true\nNoDisplay=false\nHidden=false\nComment=Activates wheel scroll speed fix on system startup\nX-GNOME-Autostart-Delay=0\nType=Application" > ~/.config/autostart/imwheel.desktop
 
 
-echo "$line"
-echo "$blank"
-echo "$line"
+next_sec
 
 
 # Optional Stuff | START
@@ -375,9 +367,7 @@ echo "$line"
 # Optional Stuff | END
 
 
-echo "$line"
-echo "$blank"
-echo "$line"
+next_sec
 
 
 echo "$in Updates"
@@ -386,9 +376,7 @@ sudo apt upgrade -y
 echo "$in Updates. DONE"
 
 
-echo "$line"
-echo "$blank"
-echo "$line"
+next_sec
 
 
 echo "$remo Unneeded Packages and Dependencies"
@@ -399,9 +387,8 @@ sudo apt autoremove -y
 echo "$remo Unneeded Packages and Dependencies. DONE"
 
 
-echo "$line"
-echo "$blank"
-echo "$line"
+next_sec
+
 
 echo "DONE!"
 #End
