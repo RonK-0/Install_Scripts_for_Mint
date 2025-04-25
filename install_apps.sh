@@ -162,7 +162,9 @@ sudo sh -c 'echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/trusted.gpg.d/m
 
 echo "Setting up Repos. DONE"
 
+
 next_sec
+
 
 echo "Check for Updates"
 sudo apt update
@@ -339,22 +341,13 @@ echo "$in Apps. DONE"
 next_sec
 
 
-echo "Linux Mint Scroll Fix (based on https://forums.linuxmint.com/viewtopic.php?p=1641324#p1641324)"
-apt_ins "imwheel zenity"
-mkdir ~/.local/bin
-wget http://www.nicknorton.net/mousewheel.sh -O ./mousewheel.sh
-chmod 755 ./mousewheel.sh
-cp ./mousewheel.sh ~/.local/bin/mousewheel.sh
-chmod u+x ~/.local/bin/mousewheel.sh
-echo -e "[Desktop Entry]\nName=Mouse Wheel Adjustment\nExec=mousewheel.sh\nComment=\nTerminal=false\nIcon=mouse\nType=Application" > $(xdg-user-dir DESKTOP)/mousewheel.desktop
-chmod u+x $(xdg-user-dir DESKTOP)/mousewheel.desktop
-echo -e "[Desktop Entry]\nName=imwheel\nExec=imwheel\nX-GNOME-Autostart-enabled=true\nNoDisplay=false\nHidden=false\nComment=Activates wheel scroll speed fix on system startup\nX-GNOME-Autostart-Delay=0\nType=Application" > ~/.config/autostart/imwheel.desktop
-
-
-next_sec
 
 
 # Optional Stuff | START
+
+echo "Linux Mint Scroll Fix (based on https://forums.linuxmint.com/viewtopic.php?p=1641324#p1641324)"
+chmod 755 mint_scroll_fix.sh
+./mint_scroll_fix.sh
 
 # echo "Spotify Adblock"
 # chmod 755 spotify_adblock.sh

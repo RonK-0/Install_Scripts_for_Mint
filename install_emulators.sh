@@ -56,11 +56,11 @@ flatpak override --user --filesystem=home com.github.shonumi.gbe-plus
 #GameBoy Advance
 echo "$in mGBA (GBA)"
 ##flatpak
-#flatpak install io.mgba.mGBA
+flatpak install io.mgba.mGBA
 
 ##APT (deb)
 #QT UI
-sudo apt install mgba-qt  mgba-common
+#sudo apt install mgba-qt  mgba-common
 
 #SDL UI
 #sudo apt install mgba-sdl mgba-common
@@ -74,10 +74,10 @@ sudo apt install mgba-qt  mgba-common
 ##APT (deb)
 #sudo apt-get install desmume
 
-
-echo "$in melonDS (DS)"
-flatpak install net.kuribo64.melonDS
-flatpak override --user --filesystem=home net.kuribo64.melonDS
+###Better to use more updated Appimage version
+# echo "$in melonDS (DS)"
+# flatpak install net.kuribo64.melonDS
+# flatpak override --user --filesystem=home net.kuribo64.melonDS
 
 
 ##Gamecube & Wii
@@ -103,8 +103,12 @@ flatpak override --user --filesystem=home net.kuribo64.melonDS
 ##echo "$in Cirtra Nightly (3DS)"
 ##flatpak install org.citra_emu.citra
 
-echo "$in Lime3DS (3DS)"
-flatpak install io.github.lime3ds.Lime3DS
+### Lime3DS is deprecated in favor of Azahar
+#echo "$in Lime3DS (3DS)"
+#flatpak install io.github.lime3ds.Lime3DS
+
+echo "$in Azahar (3DS)"
+flatpak install org.azahar_emu.Azahar
 
 
 #Switch
