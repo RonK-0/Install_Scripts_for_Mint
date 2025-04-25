@@ -52,7 +52,7 @@ read -p "Press Enter to continue" && echo
 
 
 # Distro Check
-distro_info=$(hostnamectl | grep "Operating System") |
+distro_info=$(hostnamectl | grep "Operating System")
 
 if echo "$distro_info" | grep -qiE "Linux Mint|Ubuntu"; then
     is_Ubuntu=1
@@ -99,7 +99,7 @@ if [ $is_Ubuntu -eq 1 ]; then
 elif [ $is_Debian -eq 1 ]; then
     chmod 755 repos_for_debian.sh
     ./repos_for_debian.sh
-
+fi
 echo && echo "Setting up Repos. DONE"
 
 

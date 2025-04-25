@@ -6,7 +6,7 @@ remo="Removing"
 
 #Start
 echo "Script for installing various console emulators."
-echo "Targeted for Linux Mint 20.x & Mint 21.x"
+echo "Targeted for Linux Mint 21.x (Ubuntu 22.04 LTS 'Jammy Jellyfish') and LMDE 6 (Debian 12 'Bookworm')" && echo
 
 echo "Check for Updates, Install Updates, and Remove unneeded"
 sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y
@@ -38,6 +38,7 @@ flatpak override --user --filesystem=home ca._0ldsk00l.Nestopia
 echo "$in Snes9x (SNES)"
 flatpak install com.snes9x.Snes9x
 flatpak override --user --filesystem=home com.snes9x.Snes9x
+
 
 #GameBoy & GameBoy Color
 echo "$in GB Enhanced+ (GB, GBC, GBA)"
@@ -74,18 +75,28 @@ flatpak install io.mgba.mGBA
 ##APT (deb)
 #sudo apt-get install desmume
 
-###Better to use more updated Appimage version
-# echo "$in melonDS (DS)"
+echo "$in melonDS (DS)"
+
+##flatpak
 # flatpak install net.kuribo64.melonDS
 # flatpak override --user --filesystem=home net.kuribo64.melonDS
 
+## more up to date AppImage (https://melonds.kuribo64.net/downloads.php)
+wget https://melonds.kuribo64.net/downloads/melonDS-appimage-x86_64.zip
+unzip melonDS-appimage-x86_64.zip -d ~/AppImages
+chmod +x melonDS-x86_64.AppImage
+rm melonDS-appimage-x86_64.zip
 
 ##Gamecube & Wii
 
-#echo "$in Dolphin (Gamecube & Wii)"
+echo "$in Dolphin (Gamecube & Wii)"
 
-##flatpak
-#flatpak install org.DolphinEmu.dolphin-emu
+##flatpak (https://dolphin-emu.org/download/)
+# regular release flatpak repo
+flatpak remote-add --if-not-exists flathub https://flatpak.dolphin-emu.org/releases.flatpakrepo
+# alt dev flatpak repo
+# https://flatpak.dolphin-emu.org/dev.flatpakrepo
+flatpak install org.DolphinEmu.dolphin-emu
 
 ##APT (deb)
 #echo "$tR Dophin Emulator (Stable)"
