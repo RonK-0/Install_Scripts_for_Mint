@@ -5,8 +5,9 @@ To Do List:
 - [x] Remove redundant and unused package entries & repo entries (split off to separate file for archival)  
 - [x] Update for Mint 21.x  
 - [x] Add Optional Scripts    
-- [ ] Update for Mint 22.x (on hold due to issues upgrading from Mint 21.x to Mint 22)
-- [ ] Make an LMDE 6 version of the install script  
+- [x] Make an LMDE 6 version of the install script  
+- [x] Combine redundant commands as functions to shorten script length
+- [ ] Update script for Mint 22.x (on hold due to issues upgrading from Mint 21.x to Mint 22)
 - [ ] Add curses for a text based GUI for selection of packages to install
 
 Notes: 

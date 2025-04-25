@@ -1,43 +1,40 @@
 #!/bin/bash
 line="--------------------------------------------------------------------------------"
+is_Ubuntu=0
+is_Debian=0
 
 # Reusable functions
 # shorthand for 'apt install'
 apt_ins() {
-    echo "Installing ""$1"
-    shift
+    echo "Installing ""$1" && shift
     sudo apt install -s "$@"
     echo
 }
 
 # shorthand for 'apt remove'
 apt_rem() {
-    echo "Removing ""$1"
-    shift
+    echo "Removing ""$1" && shift
     sudo apt remove -y "$@"
     echo
 }
 
 # shorthand for 'apt purge'
 apt_purge() {
-    echo "Purging ""$1" 
-    shift
+    echo "Purging ""$1" && shift
     sudo apt purge -s "$@"
     echo
 }
 
 # shorthand for 'flatpak install'
 fp_ins() {
-    echo "Installing ""$1"
-    shift
+    echo "Installing ""$1" && shift
     flatpak install -y "$@"
     echo
 }
 
 # shorthand for 'flatpak remove'
 fp_rem() {
-    echo "Removing ""$1"
-    shift
+    echo "Removing ""$1" && shift
     flatpak remove -y "$@"
     echo
 }
@@ -48,10 +45,25 @@ next_sec() {
 }
 
 
-#Start
+# Script Start
 echo "Script for auto setup of Repositories, Removal of some Preinstalled Apps, Installing Apps and Updates."
 echo "Targeted for Linux Mint 21.x (Ubuntu 22.04 LTS 'Jammy Jellyfish') and LMDE 6 (Debian 12 'Bookworm')" && echo
 read -p "Press Enter to continue" && echo
+
+
+# Distro Check
+distro_info=$(hostnamectl | grep "Operating System") |
+
+if echo "$distro_info" | grep -qiE "Linux Mint|Ubuntu"; then
+    is_Ubuntu=1
+elif echo "$distro_info" | grep -qiE "LMDE|Debian"; then
+    is_Debian=1
+else
+    echo "Your Operating System is $(echo "$distro_info" | cut -d ':' -f2- | xargs)"
+    echo "It is likely incompatible with this script meant for Linux Mint or Ubuntu, LMDE or Debian distros."
+    exit 0
+fi
+
 
 echo "Check for Updates, Install Updates, and Remove unneeded packages"
 sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y
@@ -80,11 +92,13 @@ next_sec
 
 echo "Setting up Repos" && echo
 
-# chmod 755 repos_for_ubuntu.sh
-# ./repos_for_ubuntu.sh
+if [ $is_Ubuntu -eq 1 ]; then
+    chmod 755 repos_for_ubuntu.sh
+    ./repos_for_ubuntu.sh
 
-# chmod 755 repos_for_debian.sh
-# ./repos_for_debian.sh
+elif [ $is_Debian -eq 1 ]; then
+    chmod 755 repos_for_debian.sh
+    ./repos_for_debian.sh
 
 echo && echo "Setting up Repos. DONE"
 
@@ -103,19 +117,12 @@ next_sec
 echo "$in Dependencies" && echo
 
 apt_ins "Flatpak" flatpak
-
 fp_ins "Flatseal (Flatpak permissions manager)" com.github.tchx84.Flatseal
-
 apt_ins "Python & Python-pip" python3 python3-pip python3-pip-whl
-
 apt_ins "Cargo (Rust Package Manager)" cargo
-
 apt_ins "Font Forge (requirement for Vista Fonts)" fontforge
-
 apt_ins "Git" git
-
 apt_ins "ffmpeg" ffmpeg
-
 apt_ins "curl & wget" curl wget
 
 echo && echo "Dependencies. DONE"
@@ -144,11 +151,10 @@ apt_ins "GNOME System Monitor" gnome-system-monitor
 
 apt_ins "Google Chrome" google-chrome-stable 
 
-apt_ins "Gparted" gparted
+apt_ins "GParted" gparted
 
 # fp_ins "Handbrake (Official flatpak)" fr.handbrake.ghb
 # flatpak override --user --filesystem=home fr.handbrake.ghb
-
 apt_ins "Handbrake (from distro repo or UbuntuHandbook)" handbrake handbrake-cli
 
 apt_ins "Htop" htop
@@ -261,4 +267,4 @@ next_sec
 
 
 echo "DONE!"
-#End
+# Script End
