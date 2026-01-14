@@ -124,6 +124,7 @@ apt_ins "Font Forge (requirement for Vista Fonts)" fontforge
 apt_ins "Git" git
 apt_ins "ffmpeg" ffmpeg
 apt_ins "curl & wget" curl wget
+apt_ins "Synaptic Package Manager" synaptic
 
 echo && echo "Dependencies. DONE"
 
@@ -171,6 +172,8 @@ apt_ins "Mcomix" mcomix
 
 apt_ins "MKVToolNix" mkvtoolnix mkvtoolnix-gui
 
+fp_ins "Mission Center" io.missioncenter.MissionCenter
+
 apt_ins "Nemo gtkhash extension" nemo-gtkhash
 
 apt_ins "OBS Studio" obs-studio v4l2loopback-dkms
@@ -194,8 +197,6 @@ fp_ins "Remmina Remote Desktop Client" org.remmina.Remmina
 apt_ins "Spotify" spotify-client
 
 apt_ins "Strawberry" strawberry
-
-apt_ins "Synaptic Package Manager" synaptic
 
 apt_ins "VeraCrypt" veracrypt
 
