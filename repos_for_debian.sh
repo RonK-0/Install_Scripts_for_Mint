@@ -45,9 +45,8 @@ echo "deb [arch=${ARCHITECTURE} signed-by=${SIGNED_BY}] http://download.opensuse
 echo "$stR Spotify"
 ##Reference: https://www.spotify.com/uk/download/linux/
 
-curl -sS https://download.spotify.com/debian/pubkey_C85668DF69375001.gpg | sudo gpg --dearmor --yes -o /etc/apt/trusted.gpg.d/spotify.gpg
-echo "d
-eb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
+curl -sS https://download.spotify.com/debian/pubkey_5384CE82BA52C83A.asc | sudo gpg --dearmor --yes -o /etc/apt/trusted.gpg.d/spotify.gpg
+echo "deb https://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
 
 
 echo "$stR VSCode"

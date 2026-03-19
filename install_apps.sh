@@ -47,7 +47,7 @@ next_sec() {
 
 # Script Start
 echo "Script for auto setup of Repositories, Removal of some Preinstalled Apps, Installing Apps and Updates."
-echo "Targeted for Linux Mint 21.x (Ubuntu 22.04 LTS 'Jammy Jellyfish') and LMDE 6 (Debian 12 'Bookworm')" && echo
+echo "Targeted for Linux Mint 22.x (based on Ubuntu 24.04 LTS 'Noble Numbat') and LMDE 7 Gigi (based on Debian 13 'Trixie')" && echo
 read -p "Press Enter to continue" && echo
 
 
@@ -60,7 +60,7 @@ elif echo "$distro_info" | grep -qiE "LMDE|Debian"; then
     is_Debian=1
 else
     echo "Your Operating System is $(echo "$distro_info" | cut -d ':' -f2- | xargs)"
-    echo "It is likely incompatible with this script meant for Linux Mint or Ubuntu, LMDE or Debian distros."
+    echo "It might be incompatible with this script as its meant for Linux Mint or Ubuntu & LMDE or Debian distros."
     exit 0
 fi
 
@@ -183,6 +183,8 @@ apt_ins "ONLYOFFICE Desktop Editors" "onlyoffice-desktopeditors onlyoffice-docum
 apt_ins "Papirus Icon Theme" papirus-icon-theme
 
 apt_ins "Pulse Audio Volume Control" pavucontrol
+# might remove in the future
+# unecessary on Mint 22 and later since the default Pipewire instead of Pulse Audio
 
 apt_ins "Plank Dock" plank
 
